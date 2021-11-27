@@ -4,6 +4,12 @@ sudo pacman -S neovim jq bitwarden-cli vim yay git zsh htop cmatrix tmux wget co
 
 yay -S google-chrome plex-media-player plexamp-appimage visual-studio-code-bin postman-bin
 
+if [ ! -f ~/.ssh/id_ed25519 ]; then
+    echo 'Hostname for ssh key eg. testđ@work.com'
+    read hostname
+    ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519 -C "$hostname"
+fi
+
 chsh -s $(which zsh)
 {{ else if eq .chezmoi.os "darwin" -}}
 #!/bin/sh
