@@ -1,6 +1,6 @@
 {{ if eq .chezmoi.os "linux" -}}
 #!/bin/sh
-sudo pacman -S neovim jq bitwarden-cli vim yay git zsh htop cmatrix tmux wget cowsay lolcat fortune-mod alacritty ripgrep
+sudo pacman -S neovim jq bitwarden-cli vim yay git zsh htop cmatrix tmux wget cowsay lolcat fortune-mod alacritty ripgrep --noconfirm
 
 yay -S google-chrome plex-media-player plexamp-appimage visual-studio-code-bin postman-bin
 
