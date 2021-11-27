@@ -1,0 +1,7 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+syntax on
+set laststatus=2
+set noshowmode
+set number 
+set relativenumber
