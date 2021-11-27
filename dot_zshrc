@@ -96,7 +96,7 @@ alias c="clear"
 alias w="curl wttr.in/Selva"
 alias ft="fortune|cowsay|lolcat"
 alias cs="colorscript -r"
-alias dot="cd ~/dotfiles"
+alias cm="chezmoi"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
