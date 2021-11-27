@@ -97,6 +97,9 @@ alias w="curl wttr.in/Selva"
 alias ft="fortune|cowsay|lolcat"
 alias cs="colorscript -r"
 alias cm="chezmoi"
+alias cma="chezmoi apply"
+alias cmu="chezmoi update"
+alias cmd="chezmoi diff"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
