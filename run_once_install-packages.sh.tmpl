@@ -1,16 +1,18 @@
 {{ if eq .chezmoi.os "linux" -}}
 #!/bin/sh
 sudo pacman -S neovim jq bitwarden-cli vim yay git zsh htop cmatrix tmux wget cowsay lolcat fortune-mod alacritty ripgrep --noconfirm
-
 yay -S google-chrome plex-media-player plexamp-appimage visual-studio-code-bin postman-bin
 
+[[ ! ($(basename $SHELL) = 'zsh') ]] && chsh -s $(which zsh)
+
 if [ ! -f ~/.ssh/id_ed25519 ]; then
-    echo 'Hostname for ssh key eg. testđ@work.com'
-    read hostname
-    ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519 -C "$hostname"
+  echo 'Hostname for ssh key eg. test@work.com'
+  read hostname
+  ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519 -C "$hostname"
+  echo 'ssh Key generated: copy this to github'
+  echo $(cat ~/.ssh/id_ed25519.pub)
 fi
 
-chsh -s $(which zsh)
 {{ else if eq .chezmoi.os "darwin" -}}
 #!/bin/sh
 brew install ripgrep git jq bitwarden-cli vim htop cmatrix tmux cowsay fortune lolcat alacritty iterm2 visual-studio-code plex plexamp postman 
