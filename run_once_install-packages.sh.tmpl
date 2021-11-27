@@ -1,11 +1,11 @@
 {{ if eq .chezmoi.os "linux" -}}
 #!/bin/sh
-sudo pacman -S jq bitwarden-cli vim yay git zsh htop cmatrix tmux wget cowsay lolcat fortune-mod alacritty postman
+sudo pacman -S neovim jq bitwarden-cli vim yay git zsh htop cmatrix tmux wget cowsay lolcat fortune-mod alacritty ripgrep
 
-yay -S google-chrome plex-media-player plexamp-appimage visual-studio-code-bin
+yay -S google-chrome plex-media-player plexamp-appimage visual-studio-code-bin postman-bin
 
 chsh -s $(which zsh)
 {{ else if eq .chezmoi.os "darwin" -}}
 #!/bin/sh
-brew install git jq bitwarden-cli vim htop cmatrix tmux cowsay fortune lolcat alacritty iterm2 visual-studio-code plex plexamp postman 
+brew install ripgrep git jq bitwarden-cli vim htop cmatrix tmux cowsay fortune lolcat alacritty iterm2 visual-studio-code plex plexamp postman 
 {{ end -}}
