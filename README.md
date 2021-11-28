@@ -1,8 +1,8 @@
 # Install nvchad
 
 ```
-git clone --depth 1 https://github.com/wbthomason/packer.nvim\
- ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+git clone https://github.com/NvChad/NvChad ~/.config/nvim
+nvim +'hi NormalFloat guibg=#1e222a' +PackerSync
 ```
 
 Install packages using packer
