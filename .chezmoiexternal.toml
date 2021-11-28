@@ -28,9 +28,3 @@
     exact = true
     stripComponents = 1
     refreshPeriod = "168h"
-[".config/nvim"]
-    type = "archive"
-    url = "https://github.com/NvChad/NvChad/archive/v1.0.tar.gz"
-    exact = true
-    stripComponents = 1
-    refreshPeriod = "168h"
