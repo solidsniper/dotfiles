@@ -27,6 +27,7 @@ fi
 
 
 {{ if eq .chezmoi.osRelease.id "alpine" -}}
+#!/bin/sh
 doas apk add cronie neovim jq vim git zsh htop cmatrix tmux wget alacritty ripgrep
 if [ ! -f ~/.ssh/id_ed25519 ]; then
   echo 'Hostname for ssh key eg. test@work.com'
