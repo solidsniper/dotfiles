@@ -1,6 +1,6 @@
 {{ if (or (eq .chezmoi.osRelease.id "endeavouros") (eq .chezmoi.osRelease.id "arch")) -}}
 #!/bin/sh
-if [[ $(command -v yay) != "0" ]]
+if ! [[ -x "$(command -v yay)" ]]
 then
   cd ~
   sudo pacman -Sy git --noconfirm
@@ -11,9 +11,11 @@ then
   rm -rf yay
 fi
 
-sudo pacman -S cronie neovim jq bitwarden-cli vim git zsh htop cmatrix tmux wget cowsay lolcat fortune-mod alacritty ripgrep --noconfirm
+sudo pacman -Syy
 
-yay -S google-chrome plex-media-player plexamp-appimage visual-studio-code-bin postman-bin
+sudo pacman -S cronie neovim jq vim git zsh htop cmatrix tmux wget cowsay lolcat fortune-mod alacritty ripgrep --noconfirm --needed
+
+yay -S pfetch google-chrome plexamp-appimage plex-desktop visual-studio-code-bin postman-bin --needed
 
 [[ ! ($(basename $SHELL) = 'zsh') ]] && chsh -s $(which zsh)
 if [ ! -f ~/.ssh/id_ed25519 ]; then
@@ -28,6 +30,7 @@ fi
 
 {{ if eq .chezmoi.osRelease.id "alpine" -}}
 #!/bin/sh
+doas apk update
 doas apk add cronie neovim jq vim git zsh htop cmatrix tmux wget alacritty ripgrep
 if [ ! -f ~/.ssh/id_ed25519 ]; then
   echo 'Hostname for ssh key eg. test@work.com'
