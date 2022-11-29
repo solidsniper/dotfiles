@@ -1,4 +1,4 @@
-{{ if eq .chezmoi.os "linux" -}}
+{{ if (or (eq .chezmoi.osRelease.id "endeavouros") (eq .chezmoi.osRelease.id "arch")) -}}
 #!/bin/sh
 if [[ $(command -v yay) != "0" ]]
 then
@@ -23,8 +23,22 @@ if [ ! -f ~/.ssh/id_ed25519 ]; then
   echo 'ssh Key generated: copy this to github'
   echo $(cat ~/.ssh/id_ed25519.pub)
 fi
+{{ end -}}
 
-{{ else if eq .chezmoi.os "darwin" -}}
+
+{{ if eq .chezmoi.osRelease.id "alpine" -}}
+doas apk add cronie neovim jq vim git zsh htop cmatrix tmux wget alacritty ripgrep
+if [ ! -f ~/.ssh/id_ed25519 ]; then
+  echo 'Hostname for ssh key eg. test@work.com'
+  read hostname
+  ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519 -C "$hostname"
+  echo 'ssh Key generated: copy this to github'
+  echo $(cat ~/.ssh/id_ed25519.pub)
+fi
+{{ end -}}
+
+
+{{ if eq .chezmoi.os "darwin" -}}
 #!/bin/sh
 brew install ripgrep git jq bitwarden-cli vim htop cmatrix tmux cowsay fortune lolcat alacritty iterm2 visual-studio-code plex plexamp postman 
 
