@@ -1,3 +1,21 @@
+{{ if eq .chezmoi.osRelease.id "ubuntu" -}}
+#!/bin/sh
+
+sudo apt update
+
+sudo apt install neovim jq vim git zsh htop cmatrix tmux wget cowsay lolcat fortune-mod ripgrep
+
+[[ ! $(basename $SHELL) = 'zsh' ]] && chsh -s $(which zsh)
+if [ ! -f ~/.ssh/id_ed25519 ]; then
+  echo 'Hostname for ssh key eg. test@work.com'
+  read hostname
+  ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519 -C "$hostname"
+  echo 'ssh Key generated: copy this to github'
+  echo $(cat ~/.ssh/id_ed25519.pub)
+fi
+{{ end -}}
+
+
 {{ if (or (eq .chezmoi.osRelease.id "endeavouros") (eq .chezmoi.osRelease.id "arch")) -}}
 #!/bin/sh
 if ! [[ -x "$(command -v yay)" ]]
