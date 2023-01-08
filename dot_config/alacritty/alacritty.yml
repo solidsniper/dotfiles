@@ -54,3 +54,5 @@ window:
   dimensions:
     columns: 133
     lines: 40
+key_bindings:
+  - { key: V, mods: Control, action: Paste }
