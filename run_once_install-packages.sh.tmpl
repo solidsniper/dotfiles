@@ -31,11 +31,11 @@ fi
 
 sudo pacman -Syy
 
-sudo pacman -S cronie neovim jq vim git zsh htop cmatrix tmux wget cowsay lolcat fortune-mod alacritty ripgrep --noconfirm --needed
+sudo pacman -S cronie unzip nodejs npm neovim fzf vim firefox git zsh htop cmatrix base-devel tmux wget cowsay lolcat fortune-mod alacritty ripgrep --noconfirm --needed
 
-yay -S pfetch google-chrome plexamp-appimage plex-desktop visual-studio-code-bin postman-bin --needed
+yay -S pfetch plex-desktop python pipewire wireplumber eza ethtool chezmoi chafa autofs dualsensectl docker  powerline powerline-fonts-git xdg-desktop-portal-hyprland polkit-kde-agent polkit playerctl perl pavucontrol ookla-speedtest-bin network-manager-applet net-tools mpv jq hyprpicker hyprpaper htop grim go hyprcursor xdg-desktop-portal-hyprland nvm sddm ghostty dunst ruby zsh-syntax-highlighting zsh-autosuggestions zsh-theme-powerlevel10k-git zsh-vi-mode --needed
 
-[[ ! ($(basename $SHELL) = 'zsh') ]] && chsh -s $(which zsh)
+[[ ! $(basename $SHELL) = 'zsh' ]] && chsh -s $(which zsh)
 if [ ! -f ~/.ssh/id_ed25519 ]; then
   echo 'Hostname for ssh key eg. test@work.com'
   read hostname

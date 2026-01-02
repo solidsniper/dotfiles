@@ -1,45 +1,54 @@
-# Install nvchad
+## Useful tips
+#### Automatic login
 
-```
-git clone https://github.com/NvChad/NvChad ~/.config/nvim
-nvim +'hi NormalFloat guibg=#1e222a' +PackerSync
-```
+`/etc/sddm.conf`
 
-Install packages using packer
-```
--- You must run this or `PackerSync` whenever you make changes to your plugin configuration
--- Regenerate compiled loader file
-:PackerCompile
-
--- Remove any disabled or unused plugins
-:PackerClean
-
--- Clean, then install missing plugins
-:PackerInstall
-
--- Clean, then update and install plugins
-:PackerUpdate
-
--- Perform `PackerUpdate` and then `PackerCompile`
-:PackerSync
-
--- Loads opt plugin immediately
-:PackerLoad completion-nvim ale
+```shell
+[Autologin]
+User=alex
+Session=hyprland.desktop
 ```
 
-# Enable WOL
+#### Install kwallet-pam
+
+`sudo pacman -S kwallet-pam`
+
+**edit ssdm pam file to automatically unlock wallet autostart and login**
+
+`/etc/pam.d/sddm`
+
+```shell
+#%PAM-1.0
+
+auth        include     system-login
+-auth       optional    pam_gnome_keyring.so
+-auth       optional    pam_kwallet5.so
+
+account     include     system-login
+
+password    include     system-login
+-password   optional    pam_gnome_keyring.so    use_authtok
+
+session     optional    pam_keyinit.so          force revoke
+session     include     system-login
+-session    optional    pam_gnome_keyring.so    auto_start
+-session    optional    pam_kwallet5.so         auto_start
+```
+
+
+## Enable WOL
 
 enable cronie
-```
+```bash
 sudo systemctl enable cronie
 ```
 
 create cron job as root
-```
+```bash
 sudo crontab -u root -e
 ```
 
 add
-```
+```bash
 reboot /usr/bin/sleep 20 && /usr/bin/ethtool -s interface wol g
 ```
