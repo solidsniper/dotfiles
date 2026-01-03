@@ -683,8 +683,26 @@ require('lazy').setup({
             [vim.diagnostic.severity.HINT] = '󰌶 ',
           },
         } or {},
+        virtual_lines = {
+          current_line = true,
+          severity = {
+            min = vim.diagnostic.severity.ERROR,
+          },
+          format = function(diagnostic)
+            local diagnostic_message = {
+              [vim.diagnostic.severity.ERROR] = diagnostic.message,
+              [vim.diagnostic.severity.WARN] = diagnostic.message,
+              [vim.diagnostic.severity.INFO] = diagnostic.message,
+              [vim.diagnostic.severity.HINT] = diagnostic.message,
+            }
+            return diagnostic_message[diagnostic.severity]
+          end,
+        },
         virtual_text = {
           source = 'if_many',
+          severity = {
+            max = vim.diagnostic.severity.WARN,
+          },
           spacing = 2,
           format = function(diagnostic)
             local diagnostic_message = {
