@@ -844,7 +844,6 @@ require('lazy').setup({
         'prettier',
         'prettierd',
         'rust-analyzer',
-        'shellharden',
         'shfmt',
         'some-sass-language-server',
         'stylua',
