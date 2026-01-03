@@ -17,6 +17,8 @@ setopt histignorealldups sharehistory
 
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
+# disable zsh execute prompt in vi mode https://superuser.com/questions/928846/what-is-execute-on-the-command-line-and-how-to-i-avoid-it
+bindkey -a -r ':'
 
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=5000
