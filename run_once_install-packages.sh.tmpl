@@ -17,6 +17,11 @@ fi
 
 {{ if (or (eq .chezmoi.osRelease.id "endeavouros") (eq .chezmoi.osRelease.id "arch")) -}}
 #!/bin/sh
+
+sudo pacman -Syy
+# base-devel is needed for installing yay
+sudo pacman -S base-devel --needed --noconfirm
+
 if ! [[ -x "$(command -v yay)" ]]
 then
   cd ~
@@ -116,14 +121,16 @@ DESKTOP_PACKAGES=(
   dunst
 )
 
-sudo pacman -Syy
 yay -S "${PACKAGES[@]}" --needed
-
 {{- if eq .desktop 1 }}
 yay -S "${DESKTOP_PACKAGES[@]}" --needed
 {{- end }}
 
 [[ ! $(basename $SHELL) = 'zsh' ]] && chsh -s $(which zsh)
+
+. ~/.nvm/nvm.sh
+nvm install stable
+nvm use system
 
 if [ ! -f ~/.ssh/id_ed25519 ]; then
   echo 'Hostname for ssh key eg. test@work.com'
