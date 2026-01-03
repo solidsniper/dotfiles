@@ -136,7 +136,7 @@ printf 'Is this a QEMU VM unraid etc (y/n)? '
 read qemu
 
 if [ "$qemu" != "${qemu#[Yy]}" ]; then
-	yay -S qemu-guest-agent
+	yay -S qemu-guest-agent --noconfirm
 fi
 
 if [ ! -f ~/.ssh/id_ed25519 ]; then
