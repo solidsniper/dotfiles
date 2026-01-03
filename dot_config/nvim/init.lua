@@ -272,8 +272,10 @@ require('lazy').setup({
     'iamcco/markdown-preview.nvim',
     cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
     build = 'cd app && yarn install',
-    init = function()
+    config = function()
       vim.g.mkdp_filetypes = { 'markdown' }
+      vim.g.mkdp_browser = 'chromium'
+      vim.g.mkdp_page_title = '${name}'
     end,
     ft = { 'markdown' },
   },
