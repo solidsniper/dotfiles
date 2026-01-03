@@ -1,5 +1,7 @@
 {{ $email := promptString "github email" -}}
 {{ $github_username := promptString "github username" -}}
+{{ $desktop := promptInt "Insert 0 if a server, 1 if a desktop" -}}
 [data]
   email = {{ $email | quote }}
   github_username = {{ $github_username | quote }}
+  desktop = {{ $desktop }}
