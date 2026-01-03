@@ -792,6 +792,7 @@ require('lazy').setup({
         'ansible-language-server',
         'ansible-lint',
         'bash-language-server',
+        'tree-sitter-cli',
         'beautysh',
         -- 'biome',
         'hyprls',
@@ -1054,27 +1055,68 @@ require('lazy').setup({
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    main = 'nvim-treesitter.configs', -- Sets main module to use for opts
-    -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
-    opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'python' },
-      -- Autoinstall languages that are not installed
-      auto_install = true,
-      highlight = {
-        enable = true,
-        disable = function()
-          -- check if 'filetype' option includes 'chezmoitmpl'
-          if string.find(vim.bo.filetype, 'chezmoitmpl') then
-            return true
-          end
+    config = function()
+      local ts = require 'nvim-treesitter'
+      local parsers = {
+        'bash',
+        'comment',
+        'css',
+        'diff',
+        'dockerfile',
+        'elixir',
+        'git_config',
+        -- 'gitcommit',
+        'gitignore',
+        'groovy',
+        'go',
+        'heex',
+        'hcl',
+        'html',
+        'http',
+        'java',
+        'javascript',
+        'jsdoc',
+        'json',
+        'json5',
+        'lua',
+        'make',
+        'markdown',
+        'markdown_inline',
+        'python',
+        'regex',
+        'rst',
+        'rust',
+        'scss',
+        'ssh_config',
+        'sql',
+        'terraform',
+        'typst',
+        'toml',
+        'tsx',
+        'typescript',
+        'vim',
+        'vimdoc',
+        'yaml',
+      }
+
+      for _, parser in ipairs(parsers) do
+        ts.install(parser)
+      end
+
+      vim.treesitter.language.register('groovy', 'Jenkinsfile')
+      vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+      vim.wo[0][0].foldmethod = 'expr'
+      vim.api.nvim_command 'set nofoldenable'
+      -- Treesitter-based indentation is experimental (disable for now)
+      -- vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = parsers,
+        callback = function()
+          vim.treesitter.start()
         end,
-        -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-        --  If you are experiencing weird indenting issues, add the language to
-        --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-        additional_vim_regex_highlighting = { 'ruby' },
-      },
-      indent = { enable = true, disable = { 'ruby' } },
-    },
+      })
+    end,
     -- There are additional nvim-treesitter modules that you can use to interact
     -- with nvim-treesitter. You should go explore a few and see what interests you:
     --
