@@ -1,4 +1,5 @@
 README.md
+lazy-lock.json
 us_qwertz
 {{- if ne .desktop 1 }}
 # ignore configurations of unused programs if a server is configured
