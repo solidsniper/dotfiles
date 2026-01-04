@@ -35,70 +35,70 @@ fi
 
 PACKAGES=(
   # terminal emulators
-  ghostty
   alacritty
+  ghostty
   kitty
 
   # utils
-  wget
-  ripgrep
+  autofs
+  chafa
+  chezmoi
+  ethtool
+  eza
   fzf
-  unzip
+  htop
+  jq
+  mpv
+  net-tools
   nodejs
   npm
+  ookla-speedtest-bin
   pfetch
-  eza
-  ethtool
-  chezmoi
-  chafa
-  autofs
   powerline
   powerline-fonts-git
-  ookla-speedtest-bin
-  net-tools
-  mpv
-  jq
-  htop
+  ripgrep
+  unzip
+  wget
 
   # music
   audacious
 
   # programming
-  tmux
-  vim
-  neovim
   docker
   git
-  less
   go
-  ruby
-  rustup
+  less
+  neovim
   nvm
-  ruby
   perl
   python
+  ruby
+  ruby
+  rustup
+  tmux
+  vim
   
   # zsh
   zsh
-  zsh-syntax-highlighting
   zsh-autosuggestions
+  zsh-syntax-highlighting
   zsh-theme-powerlevel10k-git
   zsh-vi-mode
 
   # fun?
   cmatrix
   cowsay
-  lolcat
   fortune-mod
+  lolcat
 )
 
 DESKTOP_PACKAGES=(
   # utils
-  playerctl
-  pavucontrol
   dualsensectl
-  polkit-kde-agent
+  pavucontrol
+  playerctl
   polkit
+  polkit-kde-agent
   
   # apps
   firefox
@@ -109,20 +109,20 @@ DESKTOP_PACKAGES=(
   wireplumber
   
   # hyprland
-  hyprland
-  hyprpicker
-  hyprpaper
-  hyprcursor
-  xdg-desktop-portal-hyprland
-  waybar
-  grim
-  sddm
   dunst
+  grim
+  hyprcursor
+  hyprland
+  hyprpaper
+  hyprpicker
+  sddm
+  waybar
+  xdg-desktop-portal-hyprland
 )
 
-yay -S "${PACKAGES[@]}" --needed
+yay -S "${PACKAGES[@]}" --needed --noconfirm
 {{- if eq .desktop 1 }}
-yay -S "${DESKTOP_PACKAGES[@]}" --needed
+yay -S "${DESKTOP_PACKAGES[@]}" --needed --noconfirm
 {{- end }}
 
 [[ ! $(basename $SHELL) = 'zsh' ]] && chsh -s $(which zsh)
