@@ -9,6 +9,7 @@
   ],
   "modules-right": [
     "custom/ps5",
+    "custom/razer",
     "custom/arrow9",
     "pulseaudio",
     "custom/arrow8",
@@ -28,6 +29,20 @@
     "clock#time"
   ],
   // Modules
+  "custom/razer": {
+    "return-type": "json",
+    "exec": "~/.config/waybar/scripts/razer",
+    "format": "{icon} {text}% ",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "on-click": "",
+    "tooltip": true,
+  },
   "battery": {
     "interval": 10,
     "states": {

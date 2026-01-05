@@ -1,4 +1,13 @@
 ## Useful tips
+
+#### Razer Mouse
+
+`sudo pacman -S openrazer-daemon && sudo gpasswd -a $USER openrazer`
+
+The wiki mentions to add the user in the plugdev group, but the group is not used on arch
+
+Reboot afterwards
+
 #### Automatic login
 
 `/etc/sddm.conf`
