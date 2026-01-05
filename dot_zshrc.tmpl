@@ -1,3 +1,8 @@
+# Hack to start bash in tty instead of zsh since fonts are broken in tty
+if [ "$XDG_SESSION_TYPE" = "tty" ] ; then
+    bash
+fi
+
 {{ if (or (eq .chezmoi.osRelease.id "endeavouros") (eq .chezmoi.osRelease.id "arch")) }}
 pfetch
 {{ end }}
