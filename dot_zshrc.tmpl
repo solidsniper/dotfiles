@@ -15,7 +15,7 @@ HISTSIZE=110000
 SAVEHIST=100000
 HISTFILE=~/.zsh_history
 setopt histignorealldups sharehistory extendedhistory
-
+FPATH=/usr/lib/nodenv/completions:"$FPATH"
 # Use modern completion system
 autoload -Uz compinit
 compinit
@@ -26,6 +26,6 @@ source ~/.zsh/aliases.zsh
 source ~/.p10k.zsh
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 source ~/.zsh/zshplugins.zsh
-source ~/.zsh/nvm.zsh
 
+eval "$(nodenv init - --no-rehash zsh)"
 eval "$(zoxide init zsh)"
