@@ -205,6 +205,14 @@ vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
 -- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
 -- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
 
+-- manual filetype overrides
+vim.filetype.add {
+  pattern = {
+    ['.*/waybar/.*'] = 'json',
+    ['.*/waybar/.*.css'] = 'css',
+  },
+}
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -1052,16 +1060,19 @@ require('lazy').setup({
       signature = { enabled = true },
     },
   },
-
   {
     'NvChad/nvim-colorizer.lua',
     opts = {
+      filetypes = {
+        'css',
+        'javascript',
+        'html',
+      },
       user_default_options = {
         tailwind = true,
       },
     },
   },
-
   { -- You can easily change to a different colorscheme.
     -- Change the name of the colorscheme plugin below, and then
     -- change the command in the config to whatever the name of that colorscheme is.
@@ -1133,7 +1144,7 @@ require('lazy').setup({
         'dockerfile',
         'elixir',
         'git_config',
-        -- 'gitcommit',
+        'gitcommit',
         'gitignore',
         'groovy',
         'go',
