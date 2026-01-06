@@ -52,6 +52,7 @@ PACKAGES=(
   net-tools
   nodejs
   nodenv
+  nodenv-node-build
   npm
   ookla-speedtest-bin
   openssh
@@ -73,7 +74,6 @@ PACKAGES=(
   go
   less
   neovim
-  nvm
   perl
   python
   ruby
@@ -131,10 +131,6 @@ yay -S "${DESKTOP_PACKAGES[@]}" --needed --noconfirm
 {{- end }}
 
 [[ ! $(basename $SHELL) = 'zsh' ]] && chsh -s $(which zsh)
-
-. ~/.nvm/nvm.sh
-nvm install stable
-nvm use system
 
 printf 'Is this a QEMU VM unraid etc (y/n)? '
 read qemu
