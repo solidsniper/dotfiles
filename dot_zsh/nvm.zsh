@@ -1,1 +1,1 @@
-nodenv init
+nodenv init -
