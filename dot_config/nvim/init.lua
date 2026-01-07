@@ -199,6 +199,10 @@ vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Move down and center' })
 vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Move up and center' })
 vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
 
+-- Prime remap, move lines with J and K in Visual mode
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
+
 -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
 -- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
 -- vim.keymap.set("n", "<C-S-l>", "<C-w>L", { desc = "Move window to the right" })
