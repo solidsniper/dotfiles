@@ -20,6 +20,12 @@ FPATH=/usr/lib/nodenv/completions:"$FPATH"
 autoload -Uz compinit
 compinit
 
+# Use gp to copy from system clipboard
+ZVM_SYSTEM_CLIPBOARD_ENABLED=true
+
+# Use vv to edit current command in nvim
+ZVM_VI_EDITOR=nvim
+
 source ~/.zsh/env.zsh
 source ~/.zsh/promptstyle.zsh
 source ~/.zsh/aliases.zsh
