@@ -8,4 +8,5 @@ us_qwertz
 .config/hypr
 .config/rofi
 .config/waybar
+.confiv/mpv
 {{- end }}
