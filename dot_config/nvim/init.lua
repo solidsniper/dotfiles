@@ -212,8 +212,8 @@ vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 -- manual filetype overrides
 vim.filetype.add {
   pattern = {
-    ['.*/waybar/.*'] = 'json',
-    ['.*/waybar/.*.css'] = 'css',
+    ['.*/waybar/config'] = 'json',
+    ['.*/waybar/*.css'] = 'css',
   },
 }
 
