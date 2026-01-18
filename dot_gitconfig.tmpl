@@ -2,4 +2,10 @@
     	email = {{ .email }}
 	name = {{ .github_username }}
 [init]
-       defaultBranch = main
+	defaultBranch = main
+[difftool]
+	prompt = false
+[diff]
+	tool = nvimdiff
+[difftool "nvimdiff"]
+    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
