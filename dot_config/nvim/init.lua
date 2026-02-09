@@ -1165,7 +1165,6 @@ require('lazy').setup({
         'dockerfile',
         'elixir',
         'git_config',
-        'gitcommit',
         'gitignore',
         'groovy',
         'go',
