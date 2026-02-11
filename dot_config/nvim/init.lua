@@ -177,7 +177,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- automatically run chezmoi apply in chezmoi directory
+-- Automatically run chezmoi apply in chezmoi directory
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
   pattern = { os.getenv 'HOME' .. '/.local/share/chezmoi/*' },
   callback = function(ev)
@@ -187,23 +187,6 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
     end
     vim.schedule(edit_watch)
   end,
-})
-
--- Configure a server via `vim.lsp.config()` or `{after/}lsp/lua_ls.lua`
-vim.lsp.config('lua_ls', {
-  settings = {
-    Lua = {
-      runtime = {
-        version = 'LuaJIT',
-      },
-      diagnostics = {
-        globals = {
-          'vim',
-          'require',
-        },
-      },
-    },
-  },
 })
 
 -- [[ Install `lazy.nvim` plugin manager ]]
@@ -695,58 +678,14 @@ require('lazy').setup({
         end,
       })
 
-      -- Diagnostic Config
-      -- See :help vim.diagnostic.Opts
-      vim.diagnostic.config {
-        severity_sort = true,
-        float = { border = 'rounded', source = 'if_many' },
-        underline = { severity = vim.diagnostic.severity.ERROR },
-        signs = vim.g.have_nerd_font and {
-          text = {
-            [vim.diagnostic.severity.ERROR] = '󰅚 ',
-            [vim.diagnostic.severity.WARN] = '󰀪 ',
-            [vim.diagnostic.severity.INFO] = '󰋽 ',
-            [vim.diagnostic.severity.HINT] = '󰌶 ',
-          },
-        } or {},
-        virtual_lines = {
-          current_line = true,
-          severity = {
-            min = vim.diagnostic.severity.ERROR,
-          },
-          format = function(diagnostic)
-            local diagnostic_message = {
-              [vim.diagnostic.severity.ERROR] = diagnostic.message,
-              [vim.diagnostic.severity.WARN] = diagnostic.message,
-              [vim.diagnostic.severity.INFO] = diagnostic.message,
-              [vim.diagnostic.severity.HINT] = diagnostic.message,
-            }
-            return diagnostic_message[diagnostic.severity]
-          end,
-        },
-        virtual_text = {
-          source = 'if_many',
-          severity = {
-            max = vim.diagnostic.severity.WARN,
-          },
-          spacing = 2,
-          format = function(diagnostic)
-            local diagnostic_message = {
-              [vim.diagnostic.severity.ERROR] = diagnostic.message,
-              [vim.diagnostic.severity.WARN] = diagnostic.message,
-              [vim.diagnostic.severity.INFO] = diagnostic.message,
-              [vim.diagnostic.severity.HINT] = diagnostic.message,
-            }
-            return diagnostic_message[diagnostic.severity]
-          end,
-        },
-      }
-
       -- LSP servers and clients are able to communicate to each other what features they support.
       --  By default, Neovim doesn't support everything that is in the LSP specification.
       --  When you add blink.cmp, luasnip, etc. Neovim now has *more* capabilities.
       --  So, we create new capabilities with blink.cmp, and then broadcast that to the servers.
-      local capabilities = require('blink.cmp').get_lsp_capabilities()
+
+      vim.lsp.config('*', {
+        capabilities = require('blink.cmp').get_lsp_capabilities(),
+      })
 
       -- Enable the following language servers
       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -758,13 +697,34 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       -- local vue_language_server_path = '/usr/lib/node_modules/@vue/language-server'
+
       local servers = {
         clangd = {},
         gopls = {
-          completeUnimported = true,
-          usePlaceholders = true,
-          analyses = {
-            unusedparams = true,
+          settings = {
+            gopls = {
+              analyses = {
+                unusedparams = true,
+              },
+              staticcheck = true,
+              completeUnimported = true,
+              usePlaceholders = true,
+            },
+          },
+        },
+        lua_ls = {
+          settings = {
+            Lua = {
+              runtime = {
+                version = 'LuaJIT',
+              },
+              diagnostics = {
+                globals = {
+                  'vim',
+                  'require',
+                },
+              },
+            },
           },
         },
         -- pyright = {},
@@ -813,6 +773,58 @@ require('lazy').setup({
               },
             },
           },
+        },
+      }
+
+      for server_name, options in pairs(servers) do
+        vim.lsp.config(server_name, options)
+        -- LSPs are enabled with mason-tool-installer
+      end
+
+      -- Diagnostic Config
+      -- See :help vim.diagnostic.Opts
+      vim.diagnostic.config {
+        severity_sort = true,
+        float = { border = 'rounded', source = 'if_many' },
+        underline = { severity = vim.diagnostic.severity.ERROR },
+        signs = vim.g.have_nerd_font and {
+          text = {
+            [vim.diagnostic.severity.ERROR] = '󰅚 ',
+            [vim.diagnostic.severity.WARN] = '󰀪 ',
+            [vim.diagnostic.severity.INFO] = '󰋽 ',
+            [vim.diagnostic.severity.HINT] = '󰌶 ',
+          },
+        } or {},
+        virtual_lines = {
+          current_line = true,
+          severity = {
+            min = vim.diagnostic.severity.ERROR,
+          },
+          format = function(diagnostic)
+            local diagnostic_message = {
+              [vim.diagnostic.severity.ERROR] = diagnostic.message,
+              [vim.diagnostic.severity.WARN] = diagnostic.message,
+              [vim.diagnostic.severity.INFO] = diagnostic.message,
+              [vim.diagnostic.severity.HINT] = diagnostic.message,
+            }
+            return diagnostic_message[diagnostic.severity]
+          end,
+        },
+        virtual_text = {
+          source = 'if_many',
+          severity = {
+            max = vim.diagnostic.severity.WARN,
+          },
+          spacing = 2,
+          format = function(diagnostic)
+            local diagnostic_message = {
+              [vim.diagnostic.severity.ERROR] = diagnostic.message,
+              [vim.diagnostic.severity.WARN] = diagnostic.message,
+              [vim.diagnostic.severity.INFO] = diagnostic.message,
+              [vim.diagnostic.severity.HINT] = diagnostic.message,
+            }
+            return diagnostic_message[diagnostic.severity]
+          end,
         },
       }
 
