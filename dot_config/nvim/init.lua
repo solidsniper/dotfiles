@@ -832,10 +832,7 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
-        go = { 'goimports-reviser', 'gofmt', stop_after_first = true },
-      },
-      formatters = {
-        ['goimports-reviser'] = { prepend_args = { '-rm-unused' } },
+        go = { 'goimports', 'gofmt', stop_after_first = true },
       },
     },
   },
