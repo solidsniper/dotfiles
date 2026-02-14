@@ -623,21 +623,6 @@ require('lazy').setup({
             },
           },
         },
-        lua_ls = {
-          settings = {
-            Lua = {
-              runtime = {
-                version = 'LuaJIT',
-              },
-              diagnostics = {
-                globals = {
-                  'vim',
-                  'require',
-                },
-              },
-            },
-          },
-        },
         -- pyright = {},
         cssls = {},
         jsonls = {},
@@ -689,8 +674,40 @@ require('lazy').setup({
 
       for server_name, options in pairs(servers) do
         vim.lsp.config(server_name, options)
-        -- LSPs are enabled with mason-tool-installer
+        vim.lsp.enable(server_name)
       end
+
+      -- Special Lua Config, as recommended by neovim help docs
+      vim.lsp.config('lua_ls', {
+        on_init = function(client)
+          if client.workspace_folders then
+            local path = client.workspace_folders[1].name
+            if path ~= vim.fn.stdpath 'config' and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc')) then
+              return
+            end
+          end
+
+          client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+            runtime = {
+              version = 'LuaJIT',
+              path = { 'lua/?.lua', 'lua/?/init.lua' },
+            },
+            diagnostics = {
+              globals = {
+                'vim',
+                'require',
+              },
+            },
+            workspace = {
+              checkThirdParty = false,
+              -- NOTE: this is a lot slower and will cause issues when working on your own configuration.
+              --  See https://github.com/neovim/nvim-lspconfig/issues/3189
+              -- library = vim.api.nvim_get_runtime_file('', true),
+            },
+          })
+        end,
+      })
+      vim.lsp.enable 'lua_ls'
 
       -- Diagnostic Config
       -- See :help vim.diagnostic.Opts
@@ -796,14 +813,8 @@ require('lazy').setup({
         'zls',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
-
-      require('mason-lspconfig').setup {
-        ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
-        automatic_installation = false,
-      }
     end,
   },
-
   { -- Autoformat
     'stevearc/conform.nvim',
     event = { 'BufWritePre' },
