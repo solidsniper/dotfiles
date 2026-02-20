@@ -84,7 +84,7 @@
 	"hyprland/language": {
 		"format": "   {}",
 		"min-length": 5,
-		"on-click": "hyprctl switchxkblayout fnatic-gear-fnatic-gear-streak60-keyboard next",
+		"on-click": "hyprctl switchxkblayout fnatic-gear-fnatic-gear-streak60-keyboard next ; hyprctl switchxkblayout moergo-go60-left-keyboard next",
 		"tooltip": false
 	},
 	"memory": {
