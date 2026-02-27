@@ -619,7 +619,6 @@ require('lazy').setup({
               },
               staticcheck = true,
               completeUnimported = true,
-              usePlaceholders = true,
             },
           },
         },
