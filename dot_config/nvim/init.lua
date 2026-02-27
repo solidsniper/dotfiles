@@ -864,6 +864,7 @@ require('lazy').setup({
       formatters_by_ft = {
         lua = { 'stylua' },
         go = { 'goimports', 'gofmt', stop_after_first = true },
+        html = { 'prettier' },
       },
     },
   },
