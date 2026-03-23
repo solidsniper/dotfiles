@@ -53,6 +53,11 @@ vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Move down and center' })
 vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Move up and center' })
 vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
 
+vim.api.nvim_create_user_command('W', 'w', {
+  desc = 'Save even if mistyped',
+  bang = true,
+})
+
 -- Prime remap, move lines with J and K in Visual mode
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
@@ -1013,12 +1018,12 @@ require('lazy').setup({
       -- - Sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup {
         mappings = {
-          add = 'Sa', -- Add surrounding in Normal and Visual modes
-          delete = 'Sd', -- Delete surrounding
-          find = 'Sf', -- Find surrounding (to the right)
-          find_left = 'SF', -- Find surrounding (to the left)
-          highlight = 'Sh', -- Highlight surrounding
-          replace = 'Sr', -- Replace surrounding
+          add = 'ra', -- Add surrounding in Normal and Visual modes
+          delete = 'rd', -- Delete surrounding
+          find = 'rf', -- Find surrounding (to the right)
+          find_left = 'rF', -- Find surrounding (to the left)
+          highlight = 'rh', -- Highlight surrounding
+          replace = 'rr', -- Replace surrounding
 
           suffix_last = 'l', -- Suffix to search with "prev" method
           suffix_next = 'n', -- Suffix to search with "next" method
