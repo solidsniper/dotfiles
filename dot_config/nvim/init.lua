@@ -139,11 +139,42 @@ require('lazy').setup({
     end,
     ft = { 'markdown' },
   },
+  -- lazy.nvim
+  {
+    'folke/snacks.nvim',
+    opts = {
+      image = {
+        resolve = function(path, src)
+          local api = require 'obsidian.api'
+          if api.path_is_note(path) then
+            return api.resolve_attachment_path(src)
+          end
+        end,
+      },
+    },
+  },
   { -- syntax highlighting for chezmoi managed files
     'alker0/chezmoi.vim',
     lazy = false,
     init = function()
       vim.g['chezmoi#use_tmp_buffer'] = true
+    end,
+  },
+  { -- obsidian
+    'obsidian-nvim/obsidian.nvim',
+    version = '*',
+    ---@module 'obsidian'
+    config = function()
+      vim.opt.conceallevel = 2
+      require('obsidian').setup {
+        legacy_commands = false, -- this will be removed in the next major release
+        workspaces = {
+          {
+            name = 'Obsidian-Vault',
+            path = '~/Documents/obsidian/Obsidian-Vault/',
+          },
+        },
+      }
     end,
   },
   {
