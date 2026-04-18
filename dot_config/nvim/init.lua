@@ -166,6 +166,7 @@ require('lazy').setup({
     ---@module 'obsidian'
     config = function()
       vim.opt.conceallevel = 2
+      vim.keymap.set('n', '<leader>os', ':Obsidian search<CR>', { desc = '[O]bsidian [S]earch' })
       require('obsidian').setup {
         legacy_commands = false, -- this will be removed in the next major release
         workspaces = {
