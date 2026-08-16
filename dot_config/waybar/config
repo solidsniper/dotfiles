@@ -139,7 +139,7 @@
 				10
 			]
 		},
-		"move-to-monitor": true,
+		// "move-to-monitor": true,
 		"disable-scroll-wraparound": true,
 		"smooth-scrolling-threshold": 4,
 		"enable-bar-scroll": true,
